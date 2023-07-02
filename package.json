@@ -1,0 +1,44 @@
+{
+  "name": "quiz-app",
+  "version": "1.0.0",
+  "description": "This is a simple quiz app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "format": "prettier --write \"*.js\"",
+    "prepare": "husky install && npx husky add .husky/pre-commit \"npm run pre-commit\"",
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohit1kumar/quiz-app.git"
+  },
+  "keywords": [
+    "\"quiz",
+    "app\""
+  ],
+  "author": "Rohit Kumar <kumar1rohit@outook.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rohit1kumar/quiz-app/issues"
+  },
+  "homepage": "https://github.com/rohit1kumar/quiz-app#readme",
+  "devDependencies": {
+    "eslint": "^8.44.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.8"
+  }
+}
