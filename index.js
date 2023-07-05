@@ -1,9 +1,11 @@
 // Import necessary modules
 import dotenv from 'dotenv'
 import express from 'express'
+import cookieParser from 'cookie-parser'
 
 import sequelize from './helpers/database.js'
 import userRoutes from './routes/user.js'
+import quizRoutes from './routes/quiz.js'
 
 // Setup dotenv
 dotenv.config()
@@ -13,6 +15,7 @@ const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())
 
 // Health check endpoint
 app.get('/', (req, res) => {
@@ -21,6 +24,7 @@ app.get('/', (req, res) => {
 
 // User Routes
 app.use('/api/v1/users', userRoutes)
+app.use('/api/v1/quizzes', quizRoutes)
 
 // Start the server
 const port = process.env.PORT || 4000

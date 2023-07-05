@@ -16,4 +16,4 @@ Option.belongsTo(Question)
 Quiz.hasMany(Participant)
 Participant.belongsTo(Quiz)
 
-export default { User, Quiz, Question, Option, Participant }
+export { User, Quiz, Question, Option, Participant }
