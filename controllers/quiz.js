@@ -61,3 +61,69 @@ export const createQuiz = async (req, res) => {
 		})
 	}
 }
+
+export const getQuizById = async (req, res) => {
+	try {
+		const { id } = req.params
+		const quiz = await Quiz.findOne({
+			where: { id },
+			include: [
+				{
+					model: Question,
+					include: [Option, { model: Option, attributes: ['text', 'id'] }]
+				}
+			]
+		})
+
+		if (!quiz) {
+			return res.status(404).json({
+				success: false,
+				message: 'Quiz Not Found'
+			})
+		}
+
+		return res.status(200).json({
+			success: true,
+			message: 'Quiz Fetched Successfully',
+			data: quiz
+		})
+	} catch (err) {
+		console.error(err)
+
+		return res.status(500).json({
+			success: false,
+			message: 'Something Went Wrong',
+			error: err.message
+		})
+	}
+}
+
+export const getAllQuizzesOfUser = async (req, res) => {
+	try {
+		const { id } = req.user
+
+		const quizzes = await Quiz.findAll({
+			where: { UserId: id },
+			include: [
+				{
+					model: Question,
+					include: [Option]
+				}
+			]
+		})
+
+		return res.status(200).json({
+			success: true,
+			message: 'Quizzes Fetched Successfully',
+			data: quizzes
+		})
+	} catch (err) {
+		console.error(err)
+
+		return res.status(500).json({
+			success: false,
+			message: 'Something Went Wrong',
+			error: err.message
+		})
+	}
+}
