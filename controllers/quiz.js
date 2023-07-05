@@ -6,6 +6,7 @@ export const createQuiz = async (req, res) => {
 	try {
 		const { id } = req.user
 		const { title, description, questions } = req.body
+
 		const quiz = await Quiz.create(
 			{
 				title,
@@ -16,8 +17,7 @@ export const createQuiz = async (req, res) => {
 		)
 
 		if (questions && questions.length > 0) {
-			for (const q of questions) {
-				const { question, options } = q
+			for (const { question, options } of questions) {
 				const qObj = await Question.create(
 					{
 						text: question,
@@ -25,31 +25,35 @@ export const createQuiz = async (req, res) => {
 					},
 					{ transaction: t }
 				)
-				if (!options || options.length === 0) {
-					continue // Skip creating options for this question if there are none provided
-				}
-				for (const o of options) {
-					const { option, isCorrect = false } = o
-					await Option.create(
-						{
-							text: option,
-							isCorrect,
-							QuestionId: qObj.id
-						},
-						{ transaction: t }
+
+				if (options && options.length > 0) {
+					const optionPromises = options.map(({ option, isCorrect = false }) =>
+						Option.create(
+							{
+								text: option,
+								isCorrect,
+								QuestionId: qObj.id
+							},
+							{ transaction: t }
+						)
 					)
+
+					await Promise.all(optionPromises)
 				}
 			}
 		}
+
 		await t.commit()
+
 		return res.status(201).json({
 			success: true,
 			message: 'Quiz Created Successfully',
 			data: quiz
 		})
 	} catch (err) {
-		console.log(err)
+		console.error(err)
 		await t.rollback()
+
 		return res.status(500).json({
 			success: false,
 			message: 'Something Went Wrong',
