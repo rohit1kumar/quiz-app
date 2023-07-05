@@ -63,7 +63,7 @@ export const loginUser = async (req, res) => {
 				message: 'Password Does Not Match'
 			})
 		}
-		const token = generateAuthToken(user._id)
+		const token = generateAuthToken(user.id)
 		const cookieOptions = {
 			expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
 			httpOnly: true
