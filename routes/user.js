@@ -1,13 +1,13 @@
 import express from 'express'
 import { registerUser, loginUser, logoutUser } from '../controllers/user.js'
-
+import { validateLogin, validateRegister } from '../middlewares/validate.js'
 const router = express.Router()
 
 // User Registration Route
-router.post('/register', registerUser)
+router.post('/register', validateRegister, registerUser)
 
 // User Login Route
-router.post('/login', loginUser)
+router.post('/login', validateLogin, loginUser)
 
 // User Logout Route
 router.post('/logout', logoutUser)

@@ -3,9 +3,8 @@ import User from '../models/user.js'
 import { generateAuthToken } from '../middlewares/auth.js'
 
 export const registerUser = async (req, res) => {
+	const { name, email, password } = req.body
 	try {
-		const { name, email, password } = req.body
-
 		const userExist = await User.findOne({ where: { email } })
 		if (userExist) {
 			return res.status(400).json({
@@ -47,8 +46,8 @@ export const registerUser = async (req, res) => {
 }
 
 export const loginUser = async (req, res) => {
+	const { email, password } = req.body
 	try {
-		const { email, password } = req.body
 		const user = await User.findOne({ where: { email } })
 		if (!user) {
 			return res.status(404).json({
@@ -87,7 +86,6 @@ export const loginUser = async (req, res) => {
 		})
 	}
 }
-
 export const logoutUser = async (req, res) => {
 	try {
 		res
