@@ -127,3 +127,27 @@ export const getAllQuizzesOfUser = async (req, res) => {
 		})
 	}
 }
+
+export const deleteQuizById = async (req, res) => {
+	const { id } = req.params
+	try {
+		const affectedRow = await Quiz.destroy({ where: { id } })
+		if (affectedRow !== 0) {
+			return res.status(200).json({
+				success: true,
+				message: 'Quiz Deleted Successfully'
+			})
+		}
+		return res.status(404).json({
+			success: false,
+			message: 'Quiz Not Found'
+		})
+	} catch (err) {
+		console.error(err)
+		return res.status(500).json({
+			success: false,
+			message: 'Something Went Wrong',
+			error: err.message
+		})
+	}
+}
