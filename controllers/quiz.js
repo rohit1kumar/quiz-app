@@ -1,62 +1,19 @@
 import { Quiz, Question, Option } from '../models/index.js'
-import sequelize from '../helpers/database.js'
 
 export const createQuiz = async (req, res) => {
-	const t = await sequelize.transaction()
 	try {
 		const { id } = req.user
-		const { title, description, questions } = req.body
-
-		const quiz = await Quiz.create(
-			{
-				title,
-				description,
-				UserId: id
-			},
-			{ transaction: t }
-		)
-
-		if (questions && questions.length > 0) {
-			for (const { question, options } of questions) {
-				const qObj = await Question.create(
-					{
-						text: question,
-						QuizId: quiz.id
-					},
-					{ transaction: t }
-				)
-
-				if (options && options.length > 0) {
-					const optionPromises = options.map(({ option, isCorrect = false }) =>
-						Option.create(
-							{
-								text: option,
-								isCorrect,
-								QuestionId: qObj.id
-							},
-							{ transaction: t }
-						)
-					)
-
-					await Promise.all(optionPromises)
-				}
-			}
-		}
-
-		await t.commit()
-
+		const { title, description } = req.body
+		const quiz = await Quiz.create({ title, description, UserId: id })
 		return res.status(201).json({
 			success: true,
-			message: 'Quiz Created Successfully',
+			message: 'Quiz created successfully',
 			data: quiz
 		})
 	} catch (err) {
-		console.error(err)
-		await t.rollback()
-
 		return res.status(500).json({
 			success: false,
-			message: 'Something Went Wrong',
+			message: 'Failed to create quiz, please try again',
 			error: err.message
 		})
 	}
@@ -78,27 +35,25 @@ export const getQuizById = async (req, res) => {
 		if (!quiz) {
 			return res.status(404).json({
 				success: false,
-				message: 'Quiz Not Found'
+				message: 'Quiz not found with the given id'
 			})
 		}
 
 		return res.status(200).json({
 			success: true,
-			message: 'Quiz Fetched Successfully',
+			message: 'Quiz fetched successfully',
 			data: quiz
 		})
 	} catch (err) {
-		console.error(err)
-
 		return res.status(500).json({
 			success: false,
-			message: 'Something Went Wrong',
+			message: 'Failed to get quiz, please try again',
 			error: err.message
 		})
 	}
 }
 
-export const getAllQuizzesOfUser = async (req, res) => {
+export const getAllQuiz = async (req, res) => {
 	try {
 		const { id } = req.user
 
@@ -114,15 +69,13 @@ export const getAllQuizzesOfUser = async (req, res) => {
 
 		return res.status(200).json({
 			success: true,
-			message: 'Quizzes Fetched Successfully',
+			message: 'Quizzes fetched successfully',
 			data: quizzes
 		})
 	} catch (err) {
-		console.error(err)
-
 		return res.status(500).json({
 			success: false,
-			message: 'Something Went Wrong',
+			message: 'Failed to get quizzes, please try again',
 			error: err.message
 		})
 	}
@@ -135,18 +88,18 @@ export const deleteQuizById = async (req, res) => {
 		if (affectedRow !== 0) {
 			return res.status(200).json({
 				success: true,
-				message: 'Quiz Deleted Successfully'
+				message: 'Quiz deleted successfully'
 			})
 		}
 		return res.status(404).json({
 			success: false,
-			message: 'Quiz Not Found'
+			message: 'Quiz not found with the given id'
 		})
 	} catch (err) {
 		console.error(err)
 		return res.status(500).json({
 			success: false,
-			message: 'Something Went Wrong',
+			message: 'Failed to delete quiz, please try again',
 			error: err.message
 		})
 	}
