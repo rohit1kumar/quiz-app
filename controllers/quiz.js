@@ -58,13 +58,7 @@ export const getAllQuiz = async (req, res) => {
 		const { id } = req.user
 
 		const quizzes = await Quiz.findAll({
-			where: { UserId: id },
-			include: [
-				{
-					model: Question,
-					include: [Option]
-				}
-			]
+			where: { UserId: id }
 		})
 
 		return res.status(200).json({

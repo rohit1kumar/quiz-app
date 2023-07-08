@@ -7,7 +7,10 @@ import {
 	updateQuizById
 } from '../controllers/quiz.js'
 import { isAuthenticated } from '../middlewares/auth.js'
-import { validateCreateQuiz } from '../middlewares/validate.js'
+import {
+	validateCreateQuiz,
+	validateUpdateQuiz
+} from '../middlewares/validate.js'
 
 const router = express.Router()
 
@@ -16,7 +19,7 @@ router.post('/', isAuthenticated, validateCreateQuiz, createQuiz)
 router.get('/:id', getQuizById)
 router.get('/', isAuthenticated, getAllQuiz)
 router.delete('/:id', isAuthenticated, deleteQuizById)
-router.patch('/:id', isAuthenticated, updateQuizById)
+router.patch('/:id', isAuthenticated, validateUpdateQuiz, updateQuizById)
 
 // Catch All for Invalid HTTP Methods
 // router.all('*', methodNotAllowed)

@@ -15,29 +15,14 @@ const validatePayload = (schema) => (req, res, next) => {
 export const validateCreateQuiz = validatePayload(
 	Joi.object({
 		title: Joi.string().required().trim(),
-		description: Joi.string().trim().required(),
-		questions: Joi.array().items(
-			Joi.object({
-				question: Joi.string().required().trim().messages({
-					'string.base': 'Question must be a string',
-					'string.empty': 'Question cannot be empty',
-					'any.required': 'Question is required'
-				}),
-				options: Joi.array().items(
-					Joi.object({
-						option: Joi.string().required().trim().messages({
-							'string.base': 'Option must be a string',
-							'string.empty': 'Option cannot be empty',
-							'any.required': 'Option is required'
-						}),
-						isCorrect: Joi.boolean().optional().messages({
-							'boolean.base': 'Correct option must be a boolean',
-							'boolean.empty': 'Correct option cannot be empty'
-						})
-					})
-				)
-			})
-		)
+		description: Joi.string().trim().required()
+	})
+)
+
+export const validateUpdateQuiz = validatePayload(
+	Joi.object({
+		title: Joi.string().trim(),
+		description: Joi.string().trim()
 	})
 )
 
