@@ -104,3 +104,29 @@ export const deleteQuizById = async (req, res) => {
 		})
 	}
 }
+export const updateQuizById = async (req, res) => {
+	try {
+		const { id } = req.params
+		const { title, description } = req.body
+		const [affectedRow] = await Quiz.update(
+			{ title, description },
+			{ where: { id } }
+		)
+		if (affectedRow !== 0) {
+			return res.status(200).json({
+				success: true,
+				message: 'Quiz updated successfully'
+			})
+		}
+		return res.status(404).json({
+			success: false,
+			message: 'Quiz not found with the given id'
+		})
+	} catch (err) {
+		return res.status(500).json({
+			success: false,
+			message: 'Failed to update quiz, please try again',
+			error: err.message
+		})
+	}
+}
