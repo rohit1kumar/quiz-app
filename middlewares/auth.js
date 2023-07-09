@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import { Quiz } from '../models/index.js'
 
 export const generateAuthToken = (id) => {
 	return jwt.sign({ id }, process.env.JWT_SECRET)
@@ -31,6 +32,37 @@ export const isAuthenticated = async (req, res, next) => {
 			})
 		}
 
+		console.error(error)
+		return res.status(500).json({
+			success: false,
+			message: 'Something Went Wrong'
+		})
+	}
+}
+
+export const isOwner = async (req, res, next) => {
+	const { id } = req.user
+	const { id: quizId } = req.params
+
+	try {
+		const quiz = await Quiz.findByPk({ where: { id: quizId } })
+
+		if (!quiz) {
+			return res.status(404).json({
+				success: false,
+				message: 'Quiz not found with the given id'
+			})
+		}
+
+		if (quiz.UserId !== id) {
+			return res.status(403).json({
+				success: false,
+				message: 'Access Denied, You are not the owner of this quiz'
+			})
+		}
+
+		next()
+	} catch (error) {
 		console.error(error)
 		return res.status(500).json({
 			success: false,
