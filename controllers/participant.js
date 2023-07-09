@@ -2,7 +2,7 @@ import { Participant } from '../models/index.js'
 import { calculateScore } from '../helpers/calculateScore.js'
 import sequelize from '../helpers/database.js'
 
-export const submitQuizByParticipant = async (req, res) => {
+export const submitQuiz = async (req, res) => {
 	const t = await sequelize.transaction()
 
 	try {
@@ -51,7 +51,7 @@ export const submitQuizByParticipant = async (req, res) => {
 	}
 }
 
-export const getAllParticipantsByQuizId = async (req, res) => {
+export const getAllParticipants = async (req, res) => {
 	try {
 		const { id } = req.params // quizId
 		// chcek if its valid user

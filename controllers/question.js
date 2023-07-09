@@ -1,7 +1,7 @@
 import { Question, Option } from '../models/index.js'
 import sequelize from '../helpers/database.js'
 
-export const createQuestionInQuiz = async (req, res) => {
+export const createQuestions = async (req, res) => {
 	const t = await sequelize.transaction()
 	try {
 		const { id } = req.params
@@ -50,8 +50,7 @@ export const createQuestionInQuiz = async (req, res) => {
 		})
 	}
 }
-
-export const getAllQuestionsInQuiz = async (req, res) => {
+export const getAllQuestions = async (req, res) => {
 	try {
 		const { id } = req.params
 
@@ -83,8 +82,7 @@ export const getAllQuestionsInQuiz = async (req, res) => {
 		})
 	}
 }
-
-export const updateQuestionInQuiz = async (req, res) => {
+export const updateQuestion = async (req, res) => {
 	try {
 		const { questionId } = req.params
 		const { question, options } = req.body
@@ -141,8 +139,7 @@ export const updateQuestionInQuiz = async (req, res) => {
 		})
 	}
 }
-
-export const deleteQuestionInQuiz = async (req, res) => {
+export const deleteQuestion = async (req, res) => {
 	try {
 		const { questionId } = req.params
 

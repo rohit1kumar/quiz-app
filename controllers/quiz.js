@@ -19,7 +19,7 @@ export const createQuiz = async (req, res) => {
 	}
 }
 
-export const getQuizById = async (req, res) => {
+export const getQuiz = async (req, res) => {
 	try {
 		const { id } = req.params
 		const quiz = await Quiz.findOne({
@@ -53,7 +53,7 @@ export const getQuizById = async (req, res) => {
 	}
 }
 
-export const getAllQuiz = async (req, res) => {
+export const getAllQuizzes = async (req, res) => {
 	try {
 		const { id } = req.user
 
@@ -81,7 +81,7 @@ export const getAllQuiz = async (req, res) => {
 	}
 }
 
-export const deleteQuizById = async (req, res) => {
+export const deleteQuiz = async (req, res) => {
 	const { id } = req.params
 	try {
 		const affectedRow = await Quiz.destroy({ where: { id } })
@@ -104,7 +104,7 @@ export const deleteQuizById = async (req, res) => {
 		})
 	}
 }
-export const updateQuizById = async (req, res) => {
+export const updateQuiz = async (req, res) => {
 	try {
 		const { id } = req.params
 		const { title, description } = req.body
