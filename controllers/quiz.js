@@ -60,6 +60,12 @@ export const getAllQuiz = async (req, res) => {
 		const quizzes = await Quiz.findAll({
 			where: { UserId: id }
 		})
+		if (quizzes.length === 0) {
+			return res.status(404).json({
+				success: false,
+				message: 'Quizzes not found for the given user'
+			})
+		}
 
 		return res.status(200).json({
 			success: true,
