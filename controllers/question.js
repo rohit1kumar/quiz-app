@@ -31,14 +31,13 @@ export const createQuestions = async (req, res) => {
 			}
 		})
 
-		const q = await Promise.all(questionPromises)
-		console.log(q)
+		await Promise.all(questionPromises)
+		// console.log(q)
 		await t.commit()
 
 		return res.status(201).json({
 			success: true,
-			message: 'Quiz Created Successfully',
-			data: q
+			message: 'Quiz Created Successfully'
 		})
 	} catch (err) {
 		console.error(err)
@@ -103,7 +102,7 @@ export const updateQuestion = async (req, res) => {
 
 		if (options && options.length > 0) {
 			for (const optionData of options) {
-				const { id, text, isCorrect } = optionData
+				const { id, option: text, isCorrect } = optionData
 
 				if (id) {
 					// Update existing option

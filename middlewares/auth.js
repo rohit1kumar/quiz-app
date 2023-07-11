@@ -45,7 +45,7 @@ export const isOwner = async (req, res, next) => {
 	const { id: quizId } = req.params
 
 	try {
-		const quiz = await Quiz.findByPk({ where: { id: quizId } })
+		const quiz = await Quiz.findOne({ where: { id: quizId } })
 
 		if (!quiz) {
 			return res.status(404).json({

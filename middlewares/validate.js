@@ -26,6 +26,34 @@ export const validateUpdateQuiz = validatePayload(
 	})
 )
 
+export const validateCreateQuestions = validatePayload(
+	Joi.object({
+		questions: Joi.array().items(
+			Joi.object({
+				question: Joi.string().required().trim(),
+				options: Joi.array().items(
+					Joi.object({
+						option: Joi.string().required().trim(),
+						isCorrect: Joi.boolean().optional()
+					})
+				)
+			})
+		)
+	})
+)
+
+export const validateUpdateQuestion = validatePayload(
+	Joi.object({
+		question: Joi.string().optional(),
+		options: Joi.array().items(
+			Joi.object({
+				option: Joi.string().required().trim(),
+				isCorrect: Joi.boolean().optional()
+			})
+		)
+	})
+)
+
 export const validateRegister = validatePayload(
 	Joi.object({
 		name: Joi.string().trim().required(),

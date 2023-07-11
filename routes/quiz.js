@@ -20,7 +20,9 @@ import { isAuthenticated, isOwner } from '../middlewares/auth.js'
 
 import {
 	validateCreateQuiz,
-	validateUpdateQuiz
+	validateUpdateQuiz,
+	validateCreateQuestions,
+	validateUpdateQuestion
 } from '../middlewares/validate.js'
 
 const router = express.Router()
@@ -34,11 +36,18 @@ router.patch('/:id', isAuthenticated, isOwner, validateUpdateQuiz, updateQuiz)
 
 // Question Creation Route
 router.get('/:id/questions', getAllQuestions)
-router.post('/:id/questions', isAuthenticated, isOwner, createQuestions)
+router.post(
+	'/:id/questions',
+	isAuthenticated,
+	isOwner,
+	validateCreateQuestions,
+	createQuestions
+)
 router.patch(
 	'/:id/questions/:questionId',
 	isAuthenticated,
 	isOwner,
+	validateUpdateQuestion,
 	updateQuestion
 )
 router.delete(
