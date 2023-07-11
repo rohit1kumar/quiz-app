@@ -11,7 +11,7 @@ export const submitQuiz = async (req, res) => {
 
 		let participant = await Participant.findOne(
 			{
-				where: { email }
+				where: { email, QuizId: id } // check if participant has already submitted the quiz
 			},
 			{ transaction: t }
 		)
