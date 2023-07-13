@@ -38,7 +38,7 @@ const router = express.Router()
 
 // Quiz Creation Route
 router.get('/:quizId', getQuiz)
-router.get('/', isAuthenticated, getAllQuizzes)
+router.get('/', getAllQuizzes)
 router.delete('/:quizId', isAuthenticated, isOwner, deleteQuiz)
 router.post('/', isAuthenticated, validateCreateQuiz, createQuiz)
 router.patch(
@@ -50,7 +50,8 @@ router.patch(
 )
 
 // Question Creation Route
-router.get('/:quizId/questions', getAllQuestions)
+router.get('/:quizId/questions', isAuthenticated, isOwner, getAllQuestions)
+
 router.post(
 	'/:quizId/questions',
 	isAuthenticated,
