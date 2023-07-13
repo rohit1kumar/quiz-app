@@ -1,6 +1,8 @@
 import express from 'express'
 import { registerUser, loginUser, logoutUser } from '../controllers/user.js'
 import { validateLogin, validateRegister } from '../middlewares/validate.js'
+import { methodNotAllowed } from '../helpers/errorHandlers.js'
+
 const router = express.Router()
 
 // User Registration Route
@@ -13,6 +15,6 @@ router.post('/login', validateLogin, loginUser)
 router.post('/logout', logoutUser)
 
 // Catch All for Invalid HTTP Methods
-// router.all('*', methodNotAllowed)
+router.all('*', methodNotAllowed)
 
 export default router

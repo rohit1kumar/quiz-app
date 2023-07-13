@@ -1,4 +1,5 @@
 import express from 'express'
+import { methodNotAllowed } from '../helpers/errorHandlers.js'
 import {
 	getQuiz,
 	createQuiz,
@@ -110,6 +111,6 @@ router.get(
 )
 
 // Catch All for Invalid HTTP Methods
-// router.all('*', methodNotAllowed)
+router.all('*', methodNotAllowed)
 
 export default router

@@ -7,6 +7,13 @@ import sequelize from './helpers/database.js'
 import userRoutes from './routes/user.js'
 import quizRoutes from './routes/quiz.js'
 
+import {
+	gracefulShutdown,
+	handleFatalError,
+	routeNotFound,
+	errorHandler
+} from './helpers/errorHandlers.js'
+
 // Setup dotenv
 dotenv.config()
 
@@ -26,6 +33,10 @@ app.get('/', (req, res) => {
 app.use('/api/v1/users', userRoutes)
 app.use('/api/v1/quizzes', quizRoutes)
 
+app.use('*', routeNotFound)
+
+app.use(errorHandler)
+
 // Start the server
 const port = process.env.PORT || 4000
 
@@ -41,3 +52,9 @@ app.listen(port, async () => {
 		sequelize.close()
 	}
 })
+
+process.on('SIGTERM', gracefulShutdown)
+process.on('SIGINT', gracefulShutdown)
+
+process.on('uncaughtException', handleFatalError)
+process.on('unhandledRejection', handleFatalError)
