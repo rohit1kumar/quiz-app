@@ -1,47 +1,20 @@
 import { Question, Option } from '../models/index.js'
-import sequelize from '../helpers/database.js'
 
-export const createQuestions = async (req, res) => {
-	const t = await sequelize.transaction()
+export const createQuestion = async (req, res) => {
 	try {
-		const { id } = req.params
+		const { quizId } = req.params // quizID
 		const { questions } = req.body
-		const questionPromises = questions.map(async ({ question, options }) => {
-			const qObj = await Question.create(
-				{
-					text: question,
-					QuizId: id
-				},
-				{ transaction: t }
-			)
 
-			if (options && options.length > 0) {
-				const optionPromises = options.map(({ option, isCorrect = false }) =>
-					Option.create(
-						{
-							text: option,
-							isCorrect,
-							QuestionId: qObj.id
-						},
-						{ transaction: t }
-					)
-				)
-
-				await Promise.all(optionPromises)
-			}
-		})
-
-		await Promise.all(questionPromises)
-		// console.log(q)
-		await t.commit()
+		const question = await Question.bulkCreate(
+			questions.map((question) => ({ ...question, QuizId: quizId }))
+		)
 
 		return res.status(201).json({
 			success: true,
-			message: 'Quiz Created Successfully'
+			message: 'Quiz Created Successfully',
+			data: question
 		})
 	} catch (err) {
-		console.error(err)
-		await t.rollback()
 		return res.status(500).json({
 			success: false,
 			message: 'Something Went Wrong',
@@ -51,10 +24,10 @@ export const createQuestions = async (req, res) => {
 }
 export const getAllQuestions = async (req, res) => {
 	try {
-		const { id } = req.params
+		const { quizId } = req.params
 
 		const questions = await Question.findAll({
-			where: { QuizId: id },
+			where: { QuizId: quizId },
 			include: [
 				{
 					model: Option,
@@ -84,46 +57,17 @@ export const getAllQuestions = async (req, res) => {
 export const updateQuestion = async (req, res) => {
 	try {
 		const { questionId } = req.params
-		const { question, options } = req.body
+		const { text } = req.body
 
-		const qObj = await Question.findOne({ where: { id: questionId } })
-
-		if (!qObj) {
+		const affectedRow = await Question.update(
+			{ text },
+			{ where: { id: questionId } }
+		)
+		if (affectedRow[0] === 0) {
 			return res.status(404).json({
 				success: false,
 				message: 'Question not found with the given id'
 			})
-		}
-
-		if (question) {
-			qObj.text = question
-			await qObj.save()
-		}
-
-		if (options && options.length > 0) {
-			for (const optionData of options) {
-				const { id, option: text, isCorrect } = optionData
-
-				if (id) {
-					// Update existing option
-					const option = await Option.findOne({
-						where: { id, QuestionId: questionId }
-					})
-
-					if (option) {
-						option.text = text
-						option.isCorrect = isCorrect
-						await option.save()
-					}
-				} else {
-					// Create new option
-					await Option.create({
-						text,
-						isCorrect,
-						QuestionId: questionId
-					})
-				}
-			}
 		}
 
 		return res.status(200).json({

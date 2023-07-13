@@ -2,9 +2,10 @@ import { Quiz, Question, Option } from '../models/index.js'
 
 export const createQuiz = async (req, res) => {
 	try {
-		const { id } = req.user
+		const { id: userId } = req.user
+		console.log(req.user)
 		const { title, description } = req.body
-		const quiz = await Quiz.create({ title, description, UserId: id })
+		const quiz = await Quiz.create({ title, description, UserId: userId })
 		return res.status(201).json({
 			success: true,
 			message: 'Quiz created successfully',
@@ -21,9 +22,9 @@ export const createQuiz = async (req, res) => {
 
 export const getQuiz = async (req, res) => {
 	try {
-		const { id } = req.params
+		const { quizId } = req.params
 		const quiz = await Quiz.findOne({
-			where: { id },
+			where: { id: quizId },
 			include: [
 				{
 					model: Question,
@@ -55,10 +56,10 @@ export const getQuiz = async (req, res) => {
 
 export const getAllQuizzes = async (req, res) => {
 	try {
-		const { id } = req.user
+		const { id: userId } = req.user
 
 		const quizzes = await Quiz.findAll({
-			where: { UserId: id }
+			where: { UserId: userId }
 		})
 		if (quizzes.length === 0) {
 			return res.status(404).json({
@@ -82,9 +83,9 @@ export const getAllQuizzes = async (req, res) => {
 }
 
 export const deleteQuiz = async (req, res) => {
-	const { id } = req.params
+	const { quizId } = req.params
 	try {
-		const affectedRow = await Quiz.destroy({ where: { id } })
+		const affectedRow = await Quiz.destroy({ where: { id: quizId } })
 		if (affectedRow !== 0) {
 			return res.status(200).json({
 				success: true,
@@ -106,11 +107,11 @@ export const deleteQuiz = async (req, res) => {
 }
 export const updateQuiz = async (req, res) => {
 	try {
-		const { id } = req.params
+		const { quizId } = req.params
 		const { title, description } = req.body
 		const [affectedRow] = await Quiz.update(
 			{ title, description },
-			{ where: { id } }
+			{ where: { id: quizId } }
 		)
 		if (affectedRow !== 0) {
 			return res.status(200).json({

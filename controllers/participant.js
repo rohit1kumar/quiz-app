@@ -7,11 +7,11 @@ export const submitQuiz = async (req, res) => {
 
 	try {
 		const { name, email, answers } = req.body
-		const { id } = req.params // quizId
+		const { quizId } = req.params // quizId
 
 		let participant = await Participant.findOne(
 			{
-				where: { email, QuizId: id } // check if participant has already submitted the quiz
+				where: { email, QuizId: quizId } // check if participant has already submitted the quiz
 			},
 			{ transaction: t }
 		)
@@ -25,11 +25,11 @@ export const submitQuiz = async (req, res) => {
 		}
 
 		participant = await Participant.create(
-			{ name, email, QuizId: id },
+			{ name, email, QuizId: quizId },
 			{ transaction: t }
 		)
 
-		const score = await calculateScore(answers)
+		const score = await calculateScore(answers, t)
 
 		participant.score = score
 		await participant.save({ transaction: t })
@@ -53,11 +53,11 @@ export const submitQuiz = async (req, res) => {
 
 export const getAllParticipants = async (req, res) => {
 	try {
-		const { id } = req.params // quizId
+		const { quizId } = req.params // quizId
 		// chcek if its valid user
 
 		const participants = await Participant.findAll({
-			where: { QuizId: id },
+			where: { QuizId: quizId },
 			attributes: ['name', 'email', 'score']
 		})
 

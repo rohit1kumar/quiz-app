@@ -26,17 +26,11 @@ export const validateUpdateQuiz = validatePayload(
 	})
 )
 
-export const validateCreateQuestions = validatePayload(
+export const validateCreateQuestion = validatePayload(
 	Joi.object({
 		questions: Joi.array().items(
 			Joi.object({
-				question: Joi.string().required().trim(),
-				options: Joi.array().items(
-					Joi.object({
-						option: Joi.string().required().trim(),
-						isCorrect: Joi.boolean().optional()
-					})
-				)
+				text: Joi.string().required().trim()
 			})
 		)
 	})
@@ -44,13 +38,24 @@ export const validateCreateQuestions = validatePayload(
 
 export const validateUpdateQuestion = validatePayload(
 	Joi.object({
-		question: Joi.string().optional(),
+		text: Joi.string().trim()
+	})
+)
+
+export const validateCreateOption = validatePayload(
+	Joi.object({
 		options: Joi.array().items(
 			Joi.object({
-				option: Joi.string().required().trim(),
+				text: Joi.string().required().trim(),
 				isCorrect: Joi.boolean().optional()
 			})
 		)
+	})
+)
+export const validateUpdateOption = validatePayload(
+	Joi.object({
+		text: Joi.string().trim(),
+		isCorrect: Joi.boolean().optional()
 	})
 )
 

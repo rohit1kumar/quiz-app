@@ -1,18 +1,25 @@
 import express from 'express'
 import {
-	createQuiz,
 	getQuiz,
+	createQuiz,
 	deleteQuiz,
 	updateQuiz,
 	getAllQuizzes
 } from '../controllers/quiz.js'
 
 import {
-	createQuestions,
-	getAllQuestions,
+	createQuestion,
 	updateQuestion,
-	deleteQuestion
+	deleteQuestion,
+	getAllQuestions
 } from '../controllers/question.js'
+
+import {
+	createOption,
+	updateOption,
+	deleteOption,
+	getAllOptions
+} from '../controllers/option.js'
 
 import { submitQuiz, getAllParticipants } from '../controllers/participant.js'
 
@@ -21,45 +28,85 @@ import { isAuthenticated, isOwner } from '../middlewares/auth.js'
 import {
 	validateCreateQuiz,
 	validateUpdateQuiz,
-	validateCreateQuestions,
-	validateUpdateQuestion
+	validateCreateQuestion,
+	validateUpdateQuestion,
+	validateCreateOption,
+	validateUpdateOption
 } from '../middlewares/validate.js'
 
 const router = express.Router()
 
 // Quiz Creation Route
-router.get('/:id', getQuiz)
+router.get('/:quizId', getQuiz)
 router.get('/', isAuthenticated, getAllQuizzes)
-router.delete('/:id', isAuthenticated, isOwner, deleteQuiz)
+router.delete('/:quizId', isAuthenticated, isOwner, deleteQuiz)
 router.post('/', isAuthenticated, validateCreateQuiz, createQuiz)
-router.patch('/:id', isAuthenticated, isOwner, validateUpdateQuiz, updateQuiz)
-
-// Question Creation Route
-router.get('/:id/questions', getAllQuestions)
-router.post(
-	'/:id/questions',
+router.patch(
+	'/:quizId',
 	isAuthenticated,
 	isOwner,
-	validateCreateQuestions,
-	createQuestions
+	validateUpdateQuiz,
+	updateQuiz
+)
+
+// Question Creation Route
+router.get('/:quizId/questions', getAllQuestions)
+router.post(
+	'/:quizId/questions',
+	isAuthenticated,
+	isOwner,
+	validateCreateQuestion,
+	createQuestion
 )
 router.patch(
-	'/:id/questions/:questionId',
+	'/:quizId/questions/:questionId',
 	isAuthenticated,
 	isOwner,
 	validateUpdateQuestion,
 	updateQuestion
 )
 router.delete(
-	'/:id/questions/:questionId',
+	'/:quizId/questions/:questionId',
 	isAuthenticated,
 	isOwner,
 	deleteQuestion
 )
 
+// Option Creation Route
+router.post(
+	'/:quizId/questions/:questionId/options',
+	isAuthenticated,
+	validateCreateOption,
+	createOption
+)
+router.delete(
+	'/:quizId/questions/:questionId/options/:optionId',
+	isAuthenticated,
+	isOwner,
+	deleteOption
+)
+router.patch(
+	'/:quizId/questions/:questionId/options/:optionId',
+	isAuthenticated,
+	isOwner,
+	validateUpdateOption,
+	updateOption
+)
+router.get(
+	'/:quizId/questions/:questionId/options',
+	isAuthenticated,
+	isOwner,
+	getAllOptions
+)
+
 // Submit quiz by participant
-router.post('/:id/submit', submitQuiz)
-router.get('/:id/participants', isAuthenticated, isOwner, getAllParticipants)
+router.post('/:quizId/submit', submitQuiz)
+router.get(
+	'/:quizId/participants',
+	isAuthenticated,
+	isOwner,
+	getAllParticipants
+)
 
 // Catch All for Invalid HTTP Methods
 // router.all('*', methodNotAllowed)

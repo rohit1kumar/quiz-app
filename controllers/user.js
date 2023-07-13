@@ -16,8 +16,9 @@ export const registerUser = async (req, res) => {
 		const hashedPassword = await bcrypt.hash(password, 10) // 10 is salt rounds
 
 		const user = await User.create({ name, email, password: hashedPassword })
+
 		// create a token
-		const token = generateAuthToken(user._id)
+		const token = generateAuthToken(user.id)
 
 		const cookieOptions = {
 			//options for the cookie

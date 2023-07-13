@@ -1,17 +1,24 @@
 import { Question, Option } from '../models/index.js'
 
-export const calculateScore = async (answers) => {
+export const calculateScore = async (answers, t) => {
 	let score = 0
 	for (const answer of answers) {
 		const { questionId, optionIds } = answer
 
-		const question = await Question.findOne({
-			where: { id: questionId },
-			include: [Option]
-		})
+		const question = await Question.findOne(
+			{
+				where: { id: questionId },
+				include: [Option]
+			},
+			{ transaction: t }
+		)
+
+		if (!question) {
+			throw new Error('Question not found')
+		}
 
 		const correctOptionIds = question.Options.filter(
-			(option) => option.isCorrect
+			(option) => option.isCorrect === true
 		).map((option) => option.id)
 
 		// Convert optionIds to numbers
