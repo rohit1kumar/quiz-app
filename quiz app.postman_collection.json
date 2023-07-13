@@ -1,0 +1,1581 @@
+{
+	"info": {
+		"_postman_id": "68d8ff20-581d-4786-ab16-88bb3ac75350",
+		"name": "quiz app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20980024"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Register user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Rohit Kumar\",\r\n    \"email\":\"rohit@email.com\",\r\n    \"password\":\"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PROD_URL}}/api/v1/users/register",
+							"host": [
+								"{{PROD_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Validation error (email already in use)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Rohit\",\r\n    \"email\":\"rohit@rohit.com\",\r\n    \"password\":\"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:4000/api/v1/users/register",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "50"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"32-wWhO1eRSujHjebd79H5CM64+hco\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jul 2023 07:49:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Email Already In Use\"\n}"
+						},
+						{
+							"name": "Register user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Rohit Kumar\",\r\n    \"email\":\"rohit@email.com\",\r\n    \"password\":\"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{PROD_URL}}/api/v1/users/register",
+									"host": [
+										"{{PROD_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg5MjMwNzM0fQ.PYx1Ss86RjYPrwY5Zjf7NihBnzpyii4B13nhFodsnOM; Path=/; Expires=Wed, 11 Oct 2023 06:45:34 GMT; HttpOnly"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "192"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c0-LBm7vnpZcw04pDJPkslSYfVW6Jw\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Jul 2023 06:45:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"User Registered Successfully\",\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg5MjMwNzM0fQ.PYx1Ss86RjYPrwY5Zjf7NihBnzpyii4B13nhFodsnOM\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Login user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"email\":\"r@rohit.com\",\r\n    \"password\":\"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PROD_URL}}/api/v1/users/login",
+							"host": [
+								"{{PROD_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Validation error (email is requierd)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    // \"email\":\"r@rohit.com\",\r\n    \"password\":\"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:4000/api/v1/users/login",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"login"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-310oUIWWLv7t/anf6htr+sA86IM\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jul 2023 07:52:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Validation Error\",\n    \"error\": \"\\\"email\\\" is required\"\n}"
+						},
+						{
+							"name": "Login user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"r@rohit.com\",\r\n    \"password\":\"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:4000/api/v1/users/login",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjg5MDYxOTY5fQ.WcSC8mxiXSwNx-zLrZL7L-yNH2U96rHHD-uyLzTqcYg; Path=/; Expires=Mon, 09 Oct 2023 07:52:49 GMT; HttpOnly"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "191"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"bf-dZ7hnZcJFXz4VQh9zs/mZNRGcYc\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jul 2023 07:52:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"User Logged In Successfully\",\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjg5MDYxOTY5fQ.WcSC8mxiXSwNx-zLrZL7L-yNH2U96rHHD-uyLzTqcYg\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "quiz",
+			"item": [
+				{
+					"name": "create quiz",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"International JavaScript Olympiad\",\r\n    \"description\": \"The International JavaScript Olympiad aims to inspire, motivate, and celebrate the artistry and technical prowess of JavaScript developers.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PROD_URL}}/api/v1/quizzes",
+							"host": [
+								"{{PROD_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create quiz",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"International JavaScript Olympiad\",\r\n    \"description\": \"The International JavaScript Olympiad aims to inspire, motivate, and celebrate the artistry and technical prowess of JavaScript developers.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{PROD_URL}}/api/v1/quizzes",
+									"host": [
+										"{{PROD_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"quizzes"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "359"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"167-WOFHsDy8UX6/hFsaqOlCLZuuVUc\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Jul 2023 06:45:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Quiz created successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"title\": \"International JavaScript Olympiad\",\n        \"description\": \"The International JavaScript Olympiad aims to inspire, motivate, and celebrate the artistry and technical prowess of JavaScript developers.\",\n        \"UserId\": 1,\n        \"updatedAt\": \"2023-07-13T06:45:42.448Z\",\n        \"createdAt\": \"2023-07-13T06:45:42.448Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Quiz",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PROD_URL}}/api/v1/quizzes/1",
+							"host": [
+								"{{PROD_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Quiz",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{PROD_URL}}/api/v1/quizzes/1",
+									"host": [
+										"{{PROD_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"quizzes",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "643"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"283-1GiiRg+GlqvjJUKs4LmyCX+xp6A\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Jul 2023 06:56:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Quiz fetched successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"title\": \"International JavaScript Olympiad\",\n        \"description\": \"The International JavaScript Olympiad aims to inspire, motivate, and celebrate the artistry and technical prowess of JavaScript developers.\",\n        \"createdAt\": \"2023-07-13T06:45:42.448Z\",\n        \"updatedAt\": \"2023-07-13T06:45:42.448Z\",\n        \"UserId\": 1,\n        \"Questions\": [\n            {\n                \"id\": 1,\n                \"text\": \"Which keyword can we used to declare variables in javaScript\",\n                \"createdAt\": \"2023-07-13T06:46:56.912Z\",\n                \"updatedAt\": \"2023-07-13T06:46:56.912Z\",\n                \"QuizId\": 1,\n                \"Options\": [\n                    {\n                        \"text\": \"let\",\n                        \"id\": 1\n                    },\n                    {\n                        \"text\": \"const\",\n                        \"id\": 2\n                    },\n                    {\n                        \"text\": \"var\",\n                        \"id\": 3\n                    },\n                    {\n                        \"text\": \"int\",\n                        \"id\": 4\n                    }\n                ]\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "delete quiz",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{PROD_URL}}/api/v1/quizzes/{{QUIZ_ID}}",
+							"host": [
+								"{{PROD_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"{{QUIZ_ID}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete quiz",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:4000/api/v1/quizzes/1",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"quizzes",
+										"1"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "79"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4f-Y1intZXvw/gWwkIh+2VYnA1kJM0\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jul 2023 08:22:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Access Denied, You are not the owner of this quiz\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update quiz",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"The International JavaScript Olympiad aims to inspire, motivate, and celebrate the artistry and technical prowess of JavaScript developers, pushing the boundaries of what can be achieved with this versatile and widely-used programming language udpate\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PROD_URL}}/api/v1/quizzes/1",
+							"host": [
+								"{{PROD_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update quiz",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"The International JavaScript Olympiad aims to inspire, motivate, and celebrate the artistry and technical prowess of developers, pushing the boundaries of what can be achieved with this versatile and widely-used programming language.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:4000/api/v1/quizzes/2",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"quizzes",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"39-fTJYQJ4C96HQatIjAB38zo9/1wA\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jul 2023 08:22:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Quiz updated successfully ok\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "question",
+			"item": [
+				{
+					"name": "Get all question",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PROD_URL}}/api/v1/quizzes/{{QUIZ_ID}}/questions/",
+							"host": [
+								"{{PROD_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"{{QUIZ_ID}}",
+								"questions",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all question",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{PROD_URL}}/api/v1/quizzes/1/questions/",
+									"host": [
+										"{{PROD_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"quizzes",
+										"1",
+										"questions",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "407"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"197-SUumO+vHIJv09G/HyXnMMRb9Ecc\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Jul 2023 06:55:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Questions fetched successfully\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"text\": \"Which keyword can we used to declare variables in javaScript\",\n            \"createdAt\": \"2023-07-13T06:46:56.912Z\",\n            \"updatedAt\": \"2023-07-13T06:46:56.912Z\",\n            \"QuizId\": 1,\n            \"Options\": [\n                {\n                    \"id\": 1,\n                    \"text\": \"let\",\n                    \"isCorrect\": true\n                },\n                {\n                    \"id\": 2,\n                    \"text\": \"const\",\n                    \"isCorrect\": true\n                },\n                {\n                    \"id\": 3,\n                    \"text\": \"var\",\n                    \"isCorrect\": true\n                },\n                {\n                    \"id\": 4,\n                    \"text\": \"int\",\n                    \"isCorrect\": false\n                }\n            ]\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Add question",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"questions\": [\r\n        {\r\n            \"text\":\"Which keyword can we used to declare variables in javaScript\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PROD_URL}}/api/v1/quizzes/1/questions",
+							"host": [
+								"{{PROD_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"1",
+								"questions"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add question",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"questions\": [\r\n        {\r\n            \"text\":\"Which keyword can we used to declare variables in javaScript\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{PROD_URL}}/api/v1/quizzes/1/questions",
+									"host": [
+										"{{PROD_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"quizzes",
+										"1",
+										"questions"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "231"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e7-vdBytBeRU6QXzHAH9/4XBCBSwco\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Jul 2023 06:46:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Quiz Created Successfully\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"text\": \"Which keyword can we used to declare variables in javaScript\",\n            \"QuizId\": 1,\n            \"createdAt\": \"2023-07-13T06:46:56.912Z\",\n            \"updatedAt\": \"2023-07-13T06:46:56.912Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Update question",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"this is questions update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PROD_URL}}/api/v1/quizzes/1/questions/1",
+							"host": [
+								"{{PROD_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"1",
+								"questions",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update question",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\": \"this is questions update\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{PROD_URL}}/api/v1/quizzes/1/questions/1",
+									"host": [
+										"{{PROD_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"quizzes",
+										"1",
+										"questions",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "69"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"45-RLrHcfN9UEttk/PpLfzprWKK0j8\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Jul 2023 06:00:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Question updated successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete question",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{PROD_URL}}/api/v1/quizzes/{{QUIZ_ID}}/questions/{{QUESTION_ID}}",
+							"host": [
+								"{{PROD_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"{{QUIZ_ID}}",
+								"questions",
+								"{{QUESTION_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "options",
+			"item": [
+				{
+					"name": "Add options",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"options\": [\r\n        {\r\n            \"text\": \"let\",\r\n            \"isCorrect\": true\r\n        },\r\n        {\r\n            \"text\": \"const\",\r\n            \"isCorrect\": true\r\n        },\r\n        {\r\n            \"text\": \"var\",\r\n            \"isCorrect\": true\r\n        },\r\n        {\r\n            \"text\":\"int\",\r\n            \"isCorrect\":false\r\n\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PROD_URL}}/api/v1/quizzes/1/questions/1/options",
+							"host": [
+								"{{PROD_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"1",
+								"questions",
+								"1",
+								"options"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add options",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"options\": [\r\n        {\r\n            \"text\": \"let\",\r\n            \"isCorrect\": true\r\n        },\r\n        {\r\n            \"text\": \"const\",\r\n            \"isCorrect\": true\r\n        },\r\n        {\r\n            \"text\": \"var\",\r\n            \"isCorrect\": true\r\n        },\r\n        {\r\n            \"text\":\"int\",\r\n            \"isCorrect\":false\r\n\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{PROD_URL}}/api/v1/quizzes/1/questions/1/options",
+									"host": [
+										"{{PROD_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"quizzes",
+										"1",
+										"questions",
+										"1",
+										"options"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "596"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"254-lXx3xw0K4cTMzNIlwpoY4sgPYes\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Jul 2023 06:47:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Option created successfully\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"text\": \"let\",\n            \"isCorrect\": true,\n            \"QuestionId\": 1,\n            \"createdAt\": \"2023-07-13T06:47:47.853Z\",\n            \"updatedAt\": \"2023-07-13T06:47:47.853Z\"\n        },\n        {\n            \"id\": 2,\n            \"text\": \"const\",\n            \"isCorrect\": true,\n            \"QuestionId\": 1,\n            \"createdAt\": \"2023-07-13T06:47:47.853Z\",\n            \"updatedAt\": \"2023-07-13T06:47:47.853Z\"\n        },\n        {\n            \"id\": 3,\n            \"text\": \"var\",\n            \"isCorrect\": true,\n            \"QuestionId\": 1,\n            \"createdAt\": \"2023-07-13T06:47:47.853Z\",\n            \"updatedAt\": \"2023-07-13T06:47:47.853Z\"\n        },\n        {\n            \"id\": 4,\n            \"text\": \"int\",\n            \"isCorrect\": false,\n            \"QuestionId\": 1,\n            \"createdAt\": \"2023-07-13T06:47:47.853Z\",\n            \"updatedAt\": \"2023-07-13T06:47:47.853Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "update option",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"options 1\",\r\n    \"isCorrect\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PROD_URL}}/api/v1/quizzes/1/questions/1/options/10",
+							"host": [
+								"{{PROD_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"1",
+								"questions",
+								"1",
+								"options",
+								"10"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update option",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\": \"options 1\",\r\n    \"isCorrect\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{PROD_URL}}/api/v1/quizzes/1/questions/1/options/10",
+									"host": [
+										"{{PROD_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"quizzes",
+										"1",
+										"questions",
+										"1",
+										"options",
+										"10"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "56"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"38-1N0W/4z4Odl2dfFVZ1MfNz6wU+Y\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Jul 2023 06:34:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Option updated successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "delete option",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{PROD_URL}}/api/v1/quizzes/1/questions/1/options/2",
+							"host": [
+								"{{PROD_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"1",
+								"questions",
+								"1",
+								"options",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{PROD_URL}}/api/v1/quizzes/1/questions/1/options/1",
+									"host": [
+										"{{PROD_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"quizzes",
+										"1",
+										"questions",
+										"1",
+										"options",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "56"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"38-wViIfcNyrfNn/DZ3vEGb4WN+jSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Jul 2023 06:21:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Option deleted successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "get all options",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PROD_URL}}/api/v1/quizzes/1/questions/1/options/",
+							"host": [
+								"{{PROD_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"1",
+								"questions",
+								"1",
+								"options",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get all options",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{PROD_URL}}/api/v1/quizzes/1/questions/1/options/",
+									"host": [
+										"{{PROD_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"quizzes",
+										"1",
+										"questions",
+										"1",
+										"options",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "597"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"255-qDE2QFYEO8digwDvcya5zg5uBj8\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Jul 2023 06:54:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Options fetched successfully\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"text\": \"let\",\n            \"isCorrect\": true,\n            \"createdAt\": \"2023-07-13T06:47:47.853Z\",\n            \"updatedAt\": \"2023-07-13T06:47:47.853Z\",\n            \"QuestionId\": 1\n        },\n        {\n            \"id\": 2,\n            \"text\": \"const\",\n            \"isCorrect\": true,\n            \"createdAt\": \"2023-07-13T06:47:47.853Z\",\n            \"updatedAt\": \"2023-07-13T06:47:47.853Z\",\n            \"QuestionId\": 1\n        },\n        {\n            \"id\": 3,\n            \"text\": \"var\",\n            \"isCorrect\": true,\n            \"createdAt\": \"2023-07-13T06:47:47.853Z\",\n            \"updatedAt\": \"2023-07-13T06:47:47.853Z\",\n            \"QuestionId\": 1\n        },\n        {\n            \"id\": 4,\n            \"text\": \"int\",\n            \"isCorrect\": false,\n            \"createdAt\": \"2023-07-13T06:47:47.853Z\",\n            \"updatedAt\": \"2023-07-13T06:47:47.853Z\",\n            \"QuestionId\": 1\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Submssion",
+			"item": [
+				{
+					"name": "Submit quiz by participant",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"aman\",\r\n    \"email\":\"aman2@aman.com\",\r\n    \"answers\":[\r\n        {\r\n            \"questionId\":\"1\",\r\n            \"optionIds\":[\"1\",\"2\",\"3\"]\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PROD_URL}}/api/v1/quizzes/1/submit",
+							"host": [
+								"{{PROD_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"1",
+								"submit"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Submit quiz by participant",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"aman\",\r\n    \"email\":\"aman2@aman.com\",\r\n    \"answers\":[\r\n        {\r\n            \"questionId\":\"1\",\r\n            \"optionIds\":[\"1\",\"2\",\"3\"]\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{PROD_URL}}/api/v1/quizzes/1/submit",
+									"host": [
+										"{{PROD_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"quizzes",
+										"1",
+										"submit"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "210"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"d2-XPHpoQhushRxd1YhR1xRm1YV/V0\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Jul 2023 06:53:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Quiz submitted successfully\",\n    \"data\": {\n        \"score\": 1,\n        \"id\": 4,\n        \"name\": \"aman\",\n        \"email\": \"aman2@aman.com\",\n        \"QuizId\": 1,\n        \"updatedAt\": \"2023-07-13T06:53:40.127Z\",\n        \"createdAt\": \"2023-07-13T06:53:40.088Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Show participants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PROD_URL}}/api/v1/quizzes/1/participants",
+							"host": [
+								"{{PROD_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"quizzes",
+								"1",
+								"participants"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Show participants",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{PROD_URL}}/api/v1/quizzes/1/participants",
+									"host": [
+										"{{PROD_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"quizzes",
+										"1",
+										"participants"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "221"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"dd-BwNR5C9U9o5C9GI9bGAbTY9IW2o\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Jul 2023 06:53:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Participants fetched successfully\",\n    \"data\": [\n        {\n            \"name\": \"Rohit\",\n            \"email\": \"r@rohit.com\",\n            \"score\": 1\n        },\n        {\n            \"name\": \"aman\",\n            \"email\": \"aman@aman.com\",\n            \"score\": 0\n        },\n        {\n            \"name\": \"aman\",\n            \"email\": \"aman1@aman.com\",\n            \"score\": 0\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"var jsonData=pm.response.json()",
+					"pm.globals.set(\"TOKEN\",jsonData?.data?.token)",
+					"pm.globals.set(\"QUIZ_ID\",jsonData?.data?.id)",
+					"",
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "TOKEN",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "PROD_URL",
+			"value": "https://quiz-app-2f1s.onrender.com",
+			"type": "string"
+		},
+		{
+			"key": "QUIZ_ID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "QUESTION_ID",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
